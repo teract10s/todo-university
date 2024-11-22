@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Edit Task</title>
+        <link th:href="@{/css/edit-task.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <h1>Edit Task</h1>
+        <form th:action="@{|/tasks/${userId}/${task.id}/update|}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:value="${task.name}"/><br/>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" th:text="${task.description}"></textarea><br/>
+            <label for="deadline">Deadline:</label>
+            <input type="datetime-local" id="deadline" name="deadline" th:value="${task.deadline}"/><br/>
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option th:each="status : ${T(test.task.todolist.model.Status).values()}"
+                        th:value="${status}"
+                        th:text="${status}"
+                        th:selected="${task.status == status}">
+                </option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+        <a th:href="@{|/tasks/${userId}|}">Back to Tasks</a>
+    </body>
+</html>
